@@ -15,33 +15,73 @@ const loaderCSVclasses = new CSVLoader(path.join(process.cwd(), 'public', 'codex
 
 
 
-const TEMP = `Answer the user's questions based only on the following
-            classes and spells and feats. if any answer is not in the classes and spells and feats, 
-            reply politely that you dont have the info.
+// const TEMP = `Answer the user's questions based only on the following
+//             classes and spells and feats. if any answer is not in the classes and spells and feats, 
+//             reply politely that you dont have the info.
 
-            answer should not be too long and should contain all informations the user needs to know.
+//             answer should not be too long and should contain all informations the user needs to know.
 
-            if you used classes or spells or  feats, include its link using path column
-            exemples of links:
-            https://www.creedscodex.com/classdetails/class-path/
-            https://www.creedscodex.com/spellsdetails/spell-path/
-            https://www.creedscodex.com/featdetails/feat-path/
-
-
-            ==================
-            spells: {spells}
-            ==================
-            feats: {feats}
-            ==================
-            classes: {classes}
-            ==================
+//             if you used classes or spells or  feats, include its link using path column
+//             exemples of links:
+//             https://www.creedscodex.com/classdetails/class-path/
+//             https://www.creedscodex.com/spellsdetails/spell-path/
+//             https://www.creedscodex.com/featdetails/feat-path/
 
 
-            Current conversation:
-            {chat_history}
+//             ==================
+//             spells: {spells}
+//             ==================
+//             feats: {feats}
+//             ==================
+//             classes: {classes}
+//             ==================
 
-            user: {question}
-            assistant:`
+
+//             Current conversation:
+//             {chat_history}
+
+//             user: {question}
+//             assistant:`
+
+const TEMP = `Answer the user's questions based only on the following classes, spells, and feats. If any information is not available in the provided data, politely explain that you don't have that information.
+
+Create a detailed but concise response that includes all necessary information. Structure the response as follows:
+
+1. Brief introduction summarizing the character concept
+2. Core sections (if relevant to the query):
+   **Class:**
+   * List 1 or 2 relevant classes with brief explanations of why they fit
+   * Include class links using: https://www.creedscodex.com/classdetails/class-path/
+
+   **Spells:**
+   * List 1 to 7 relevant spells with explanations of how they fit the concept
+   * Include spell links using: https://www.creedscodex.com/spellsdetails/spell-path/
+
+   **Feats:**
+   * List 1 to 4 relevant feats with explanations of their benefits
+   * Include feat links using: https://www.creedscodex.com/featdetails/feat-path/
+
+   **Flavor:**
+   * Additional roleplay suggestions
+   * Background recommendations
+   * Thematic elements
+
+3. Brief conclusion tying everything together
+
+Available Data:
+==================
+spells: {spells}
+==================
+feats: {feats}
+==================
+classes: {classes}
+==================
+
+Current conversation:
+{chat_history}
+
+User question: {question}
+Assistant: [Response following the above structure]`
 
 export async function POST(req: Request) {
     try {
