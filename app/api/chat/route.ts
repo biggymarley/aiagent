@@ -7,7 +7,7 @@ import { LangChainAdapter } from 'ai';
 
 export const dynamic = 'force-dynamic'
 
-const loaderCSVclasses = new CSVLoader("/codexData/class.csv");
+const loaderCSVclasses = new CSVLoader(`${process.cwd()}/public/codexData/class.csv`);
 // const loaderCSVspells = new CSVLoader("public/codexData/spells.csv");
 // const loaderCSVFeats = new CSVLoader("public/codexData/feats.csv");
 
