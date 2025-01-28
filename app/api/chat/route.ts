@@ -4,13 +4,14 @@ import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { LangChainAdapter } from 'ai';
+import path from 'path';
 
 export const dynamic = 'force-dynamic'
 
-const loaderCSVclasses = new CSVLoader(`/api/chat/class.csv`);
 // const loaderCSVspells = new CSVLoader("public/codexData/spells.csv");
 // const loaderCSVFeats = new CSVLoader("public/codexData/feats.csv");
-
+const csvPath = path.join(process.cwd(), 'public', 'codexData', 'class.csv');
+const loaderCSVclasses = new CSVLoader(csvPath);
 
 
 
