@@ -16,7 +16,7 @@ const loaderCSVclasses = new CSVLoader(path.join(process.cwd(), 'public', 'codex
 
 
 const TEMP = `Answer the user's questions based only on the following
-            classes and spells. if any answer is not in the classes and spells and feats, 
+            classes and spells and feats. if any answer is not in the classes and spells and feats, 
             reply politely that you dont have the info.
 
             keep the answer in no more than 8 lines with all informations the user needs to know.
