@@ -8,57 +8,64 @@ import path from 'path';
 
 export const dynamic = 'force-dynamic'
 
-// const loaderCSVspells = new CSVLoader("public/codexData/spells.csv");
-// const loaderCSVFeats = new CSVLoader("public/codexData/feats.csv");
-const csvPath = path.join(process.cwd(), 'public', 'codexData', 'class.csv');
-const loaderCSVclasses = new CSVLoader(csvPath);
+const loaderCSVspells = new CSVLoader(path.join(process.cwd(), 'public', 'codexData', 'spells.csv'));
+const loaderCSVFeats = new CSVLoader(path.join(process.cwd(), 'public', 'codexData', 'feats.csv'));
+const loaderCSVclasses = new CSVLoader(path.join(process.cwd(), 'public', 'codexData', 'class.csv'));
+
 
 
 
 const TEMP = `Answer the user's questions based only on the following
-            classes and spells. if any answer is not in the classes and spells , 
+            classes and spells. if any answer is not in the classes and spells and feats, 
             reply politely that you dont have the info.
 
-            Include references to which you used for each part of your answer.
-            references should include exact data you based your answer from the document provided.
-            references should be in anew line under each part of your answer.
-            references should be wrapped between Backticks .
-           
+            keep the answer in no more than 8 lines with all informations the user needs to know.
+
+            if you used classes or spells or  feats, include its link using path column
+            exemples of links:
+            https://www.creedscodex.com/classdetails/class-path/
+            https://www.creedscodex.com/spellsdetails/spell-path/
+            https://www.creedscodex.com/featdetails/feat-path/
+
+
+            ==================
+            spells: {spells}
+            ==================
+            feats: {feats}
+            ==================
             classes: {classes}
+            ==================
+
 
             Current conversation:
             {chat_history}
 
             user: {question}
             assistant:`
+
 export async function POST(req: Request) {
     try {
-        const { messages, jobDescription } = await req.json();
-        console.log(jobDescription)
+        const { messages } = await req.json();
         const message = messages.at(-1).content
         const classesDocs = await loaderCSVclasses.load()
-        // const spellsDocs = await loaderCSVspells.load()
-        // const featsDocs = await loaderCSVFeats.load()
-        // const prompt = ChatPromptTemplate.fromTemplate(``);
+        const spellsDocs = await loaderCSVspells.load()
+        const featsDocs = await loaderCSVFeats.load()
 
         const prompt = PromptTemplate.fromTemplate(TEMP)
         const model = new ChatGoogleGenerativeAI({
             model: "gemini-2.0-flash-exp",
             apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-            // maxOutputTokens: 2048,
             temperature: 0
         });
         const parser = new StringOutputParser();
 
-        // const chain = prompt.pipe(model).pipe(parser);
         const chain = RunnableSequence.from([
             {
                 chat_history: (input) => input.chat_history,
                 question: (input) => input.question,
                 classes: () => classesDocs,
-                // spells: () => spellsDocs,
-                // feats: () => featsDocs,
-                // job_description: () => jobDescription
+                spells: () => spellsDocs,
+                feats: () => featsDocs,
             },
             prompt,
             model,
@@ -72,12 +79,6 @@ export async function POST(req: Request) {
 
         return LangChainAdapter.toDataStreamResponse(stream);
 
-        // const result = streamText({
-        //     model: google('gemini-2.0-flash-exp'),
-        //     system: 'You are a helpful assistant.',
-        //     messages,
-        // });
-        // return result.toDataStreamResponse()
     } catch (error) {
         console.log("err", error);
     }
