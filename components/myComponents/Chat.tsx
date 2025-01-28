@@ -19,6 +19,8 @@ export function Chat() {
     }
   });
 
+
+  
   return (
     <main className="flex w-full min-h-screen bg-background">
       <section className="flex flex-col w-full relative">
@@ -70,7 +72,7 @@ export function Chat() {
           </ul>
         </section>
 
-        <section className="p-4 absolute w-full bottom-0">
+        <section className="p-4 fixed w-full bottom-0 bg-background">
           <form
             onSubmit={handleSubmit}
             className="flex w-full items-center"

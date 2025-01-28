@@ -50,16 +50,19 @@ Create a detailed but concise response that includes all necessary information. 
 1. Brief introduction summarizing the character concept
 2. Core sections (if relevant to the query):
    **Class:**
-   * List 1 or 2 relevant classes with brief explanations of why they fit
+   * List relevant classes with brief explanations of why they fit
    * Include class links using: https://www.creedscodex.com/classdetails/class-path/
+   * Note if class is [Free] or [Paid]
 
    **Spells:**
-   * List 1 to 7 relevant spells with explanations of how they fit the concept
+   * List relevant spells with explanations of how they fit the concept
    * Include spell links using: https://www.creedscodex.com/spellsdetails/spell-path/
+   * Note if spell is [Free] or [Paid]
 
    **Feats:**
-   * List 1 to 4 relevant feats with explanations of their benefits
+   * List relevant feats with explanations of their benefits
    * Include feat links using: https://www.creedscodex.com/featdetails/feat-path/
+   * Note if feat is [Free] or [Paid]
 
    **Flavor:**
    * Additional roleplay suggestions
@@ -67,6 +70,9 @@ Create a detailed but concise response that includes all necessary information. 
    * Thematic elements
 
 3. Brief conclusion tying everything together
+
+Format for each item:
+* **ItemName** [Free/Paid]: Description. link
 
 Available Data:
 ==================
