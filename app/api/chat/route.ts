@@ -19,7 +19,7 @@ const TEMP = `Answer the user's questions based only on the following
             classes and spells and feats. if any answer is not in the classes and spells and feats, 
             reply politely that you dont have the info.
 
-            keep the answer in no more than 8 lines with all informations the user needs to know.
+            answer should not be too long and should contain all informations the user needs to know.
 
             if you used classes or spells or  feats, include its link using path column
             exemples of links:
